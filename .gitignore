@@ -1,0 +1,48 @@
+node_modules
+.env
+
+# Hardhat files
+/cache
+/artifacts
+
+# TypeChain files
+/typechain
+/typechain-types
+
+# solidity-coverage files
+/coverage
+/coverage.json
+
+# Hardhat Ignition default folder for deployments against a local node
+ignition/deployments/chain-31337
+
+
+
+# Node.js modules
+/node_modules/
+
+# Build directories
+/build/
+/dist/
+/artifacts/
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# Hardhat-specific files
+/.openzeppelin
+/hardhat.config.js
+/console.log
+
+# IDE-specific files
+.vscode/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+
