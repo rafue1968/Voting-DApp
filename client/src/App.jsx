@@ -8,22 +8,42 @@ function App(){
     const [votes, setVotes]= useState({});
     const [selected, setSelected] = useState("");
 
+
+    // const provider = new BrowserProvider(window.ethereum);
+
+    // await window.ethereum.request({method: "eth_requestAccounts"})
+
     useEffect(() => {
         const load = async () => {
+            if (typeof window.ethereum === "undefined"){
+                alert("MetaMask is not installed. Please install it to use this DApp.");
+                return;
+            }
+
+
             const provider = new ethers.BrowserProvider(window.ethereum);
             await provider.send("eth_requestAccounts", []);
             const signer = await provider.getSigner();
             const contract = new ethers.Contract(contractAddress, abi, signer);
 
-            const opts = await contract.getOptions();
-            setOptions(opts);
+            console.log("Contract address:", contractAddress);
+            console.log("Contract object:", contract);
 
-            const votesData = {};
-            for (let opt of opts){
-                const count = await contract.getVotes(opt);
-                votesData[opt] = count.toString();
+            try {
+                const opts = await contract.getOptions();
+                setOptions(opts);
+
+                const votesData = {};
+                for (let opt of opts){
+                    const count = await contract.getVotes(opt);
+                    votesData[opt] = count.toString();
+                }
+                setVotes(votesData);
+            } catch (error) {
+                console.error("Failed to call getOptions():", error);
             }
-            setVotes(votesData);
+
+            
         };
 
         load();
